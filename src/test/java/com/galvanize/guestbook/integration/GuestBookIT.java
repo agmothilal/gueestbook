@@ -10,7 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -32,6 +32,27 @@ public class GuestBookIT {
 
         mockMvc.perform(requestBuilder)
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void allCommentsTest() throws Exception {
+        this.mockMvc.perform(get("/comments"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("length()").value(0));
+
+        var comment = new VisitorCommentDto("David", "First comment");
+
+        var requestBuilder = post("/comment").
+                contentType(MediaType.APPLICATION_JSON).
+                content(mapper.writeValueAsString(comment));
+
+        this.mockMvc.perform(get("/comments"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("length()").value(1))
+                .andExpect(jsonPath("$[0].name").value("David"))
+                .andExpect(jsonPath("$[0].comment").value("First comment"));
     }
 
 }

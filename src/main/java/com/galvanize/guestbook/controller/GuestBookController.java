@@ -19,4 +19,9 @@ public class GuestBookController {
         commentsDto.add(commentDto);
     }
 
+    @GetMapping(value = "/comments", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public List<VisitorCommentDto> getComments(){
+        return null;
+    }
 }
