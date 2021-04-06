@@ -2,10 +2,7 @@ package com.galvanize.guestbook.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.galvanize.guestbook.dto.VisitorCommentDto;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,7 +15,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class GuestBookIT {
 
     @Autowired
@@ -28,7 +24,7 @@ public class GuestBookIT {
     ObjectMapper mapper;
 
     @Test
-    @Order(value = 2)
+    @DirtiesContext
     public void addCommentTest() throws Exception {
         var comment = new VisitorCommentDto("David", "First comment");
 
@@ -41,7 +37,7 @@ public class GuestBookIT {
     }
 
     @Test
-    @Order(value = 1)
+    @DirtiesContext
     public void allCommentsTest() throws Exception {
         this.mockMvc.perform(get("/comments"))
                 .andExpect(status().isOk())
