@@ -1,0 +1,15 @@
+Comments
+
+.request
+include::{snippets}/Comments/http-request.adoc[]
+
+.response
+include::{snippets}/Comments/http-response.adoc[]
+
+AddComment
+
+.request
+include::{snippets}/AddComment/http-request.adoc[]
+
+.response
+include::{snippets}/AddComment/http-response.adoc[]
