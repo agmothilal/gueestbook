@@ -31,8 +31,8 @@ For Windows
 ## How to create container(local)
   On Unix/Linux:
   Edit DockerFile Comment out line 4, and 10
-  #RUN apt-get update && apt-get install -y dos2uni
-  #RUN dos2unix gradle
+  * #RUN apt-get update && apt-get install -y dos2uni
+  * #RUN dos2unix gradle
   
   Edit src/main/resources/application.properties file on line 6.
   Change 172.17.0.2 to your hostname.
